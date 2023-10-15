@@ -54,6 +54,7 @@ const StepBody = ({current, setCurrent, data}) => {
         marginTop: 16,
     };
 
+    // TODO: add done to last answer
 
     return (
         <div style={{width: '90%', display: 'flex', flexDirection: 'column'}}>

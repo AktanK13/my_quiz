@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { useNavigate } from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 import {useSelector} from "react-redux";
 import {useGetQuizQuery} from "../../services/createQuizApi.js";
@@ -9,22 +9,29 @@ const Quiz = () => {
     const [quiz, setQuiz] = useState()
     const navigate = useNavigate();
 
-    const name  = useSelector(state=> state.user.userName)
-    const token  = useSelector(state=> state.user.userToken)
+    const [user, setUser] = useState([]);
     const params = useSelector(state => state.quiz.quiz)
 
     const {data} = useGetQuizQuery(params)
 
 
-    console.log(data, 'quiz')
 
     useEffect(() => {
-        setQuiz(data?.results)
-    },[data])
+        const user = JSON.parse(localStorage.getItem('persist:user'));
+        const storage = JSON.parse(user.user)
 
-    if (!token && !name) {
-        navigate('/')
-    }
+        if (user) {
+            setUser(user);
+        }
+        if (!storage.userName && !storage.userToken) {
+            navigate('/')
+        }
+        if (data) {
+            setQuiz(data?.results)
+        }
+    }, [])
+
+
     return (
         <div style={{width: '90%', margin: '50px auto', display: 'flex', flexDirection: 'column'}}>
             <StepComponent data={quiz}/>

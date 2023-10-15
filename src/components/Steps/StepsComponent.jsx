@@ -11,6 +11,7 @@ const StepComponent = ({data: steps}) => {
         key: steps?.indexOf(item),
     }));
 
+    // TODO: add correct and incorrect answers in quiz
     return (
         <>
             <div>
